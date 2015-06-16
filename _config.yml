@@ -1,0 +1,56 @@
+### Site info:
+title: Hey! Whatcha readin' for?
+tagline: Isn't that the weirdest fuckin' question you've ever heard?
+author: mvdwoord
+email: mvdwoord@gmail.com
+description: "Incoherent ramblings of a fool." # You can edit this line in _config.yml. It will appear in your document head meta and in your feed.xml site description
+keywords: "Blog, Jekyll, Posts, Words"
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://localhost:4000" # the base hostname & protocol for your site
+locale: en_US
+
+### Personal info and site tools info:
+twitter_username: mvdwrd
+github_username:  mvdwoord
+disqus_shortname: heywhatchareadinfor
+favicon:     "/images/favicon.ico"
+aboutme:  # these are shown on aboutme-sidebar.
+aboutme_photo: /images/leo_de_beo.jpg # your photo.
+
+
+### Site setting:
+ShowContactInfo: "True" # Personal Info (twitter,github,email) can be seen on aboutme-sidebar, those info only shown when ShowContactInfo == True
+default_column: "two" # blog style: two columns, if default_column != "two", you will see a one column blog.
+default_locale: "en" # blog sidebar language set, only include: English(en) and Chinese (cn)
+
+locales:
+    en:
+      Aboutme: ""
+      Archives: "Archives"
+      Blogroll: "Blogroll"
+      Categories: "Categories"
+      Copyright_Notice: "Copyright Notice"
+      Recent_Posts: "Recent Posts"
+      Tags: "Tags"
+      Previous: "Older"
+      Next: "Newer"
+      PostedInCategories: "Posted in"
+      Taggedwith: "and tagged"  
+      PostDate: "on "
+
+
+### your Blogroll info, only name can shown on the page.
+
+Blogroll:
+    - name: Matt Might
+      href: http://matt.might.net/
+      title: "just a collection of short articles"
+    - name: Joel on Software
+      href: http://www.joelonsoftware.com/
+      title: Joel Spolsky, a software developer in New York City.
+
+
+### Build settings
+markdown: kramdown
+highlighter: pygments
+paginate: 5
