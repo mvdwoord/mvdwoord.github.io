@@ -42,12 +42,21 @@ locales:
 ### your Blogroll info, only name can shown on the page.
 
 Blogroll:
-    - name: Matt Might
-      href: http://matt.might.net/
-      title: "just a collection of short articles"
+    - name: Better Explained
+      href: http://betterexplained.com/
+      title: "Math lessons based on clear, simple insights."
+    - name: Daniel Miessler
+      href: https://danielmiessler.com/
+      title: "Information security professional"
     - name: Joel on Software
       href: http://www.joelonsoftware.com/
       title: Joel Spolsky, a software developer in New York City.
+    - name: Kalzumeus
+      href: http://www.kalzumeus.com/blog/
+      title: Patrick McKenzie
+    - name: Matt Might
+      href: http://matt.might.net/
+      title: "just a collection of short articles"
 
 
 ### Build settings
