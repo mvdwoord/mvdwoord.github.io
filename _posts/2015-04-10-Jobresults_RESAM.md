@@ -69,7 +69,7 @@ Execute "cscript //NoLogo @[SCRIPT]"
 
 Now this is all very nice, you can play around with the Xpath expression a bit to have it suit your needs and adjust the formatting if you like. There are however situations when this approach is not practical. Exporting the entire job results to xml can be costly with large jobs. If you run a decent sized project on a large number of machines, with tasks spitting out some data to stdout or in a grabbed log file, exporting takes a long time, and your database server takes quite a hit. Then you will need to import this xml into Powershell, have you ever tried loading a 200 MB xml file? I have, and on pretty decent machines there will be plenty of time for coffee.
 
-![Art Vandelay - Importer Exporter]({{site.url}}/images/art_vandelay.jpg)
+![Art Vandelay - Importer Exporter]({{site.url}}/images/art_vandelay.jpg){: .center-image}
 
 ####Job statistics with SQL
 Why don’t we skip the middleman? All information is in the datastore, just get it straight from the source. With the knowledge gained from previous explorations in the datastore this should be a breeze right?

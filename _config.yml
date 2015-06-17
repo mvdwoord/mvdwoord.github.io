@@ -57,7 +57,9 @@ Blogroll:
     - name: Matt Might
       href: http://matt.might.net/
       title: "just a collection of short articles"
-
+    - name: Proper Fixation
+      href: http://yosefk.com/blog/
+      title: "a substitute for anaesthesia"
 
 ### Build settings
 markdown: kramdown

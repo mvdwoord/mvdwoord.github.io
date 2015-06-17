@@ -98,7 +98,10 @@ img {
   vertical-align: middle;
 }
 
-
+img.center-image {
+  margin: 0 auto;
+  display: block;
+}
 
 /**
  * Figures
