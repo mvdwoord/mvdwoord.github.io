@@ -223,6 +223,7 @@ So it looks like a bunch more UTF-16 but there is something going on in the firs
 
 #####Agent Communication
 The first byte the agent sends out is 0x01 als known as the SOH or Start of Heading control character. A little history lesson from wikipedia:
+
 >"The transmission control characters were intended to structure a data stream, and to manage re-transmission or graceful failure, as needed, in the face of transmission errors.
 The start of heading (SOH) character was to mark a non-data section of a data stream—the part of a stream containing addresses and other housekeeping data. The start of text character (STX) marked the end of the header, and the start of the textual part of a stream."
 
