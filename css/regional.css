@@ -1,0 +1,14 @@
+div#appcontainer {
+    width: 100%;
+    border: 1px solid black;
+    min-height: 400px;
+}
+
+div#appheader {
+    min-height: 5em;
+    border: 1px solid black;
+}
+
+div#appstatus{
+    float: right;
+}
