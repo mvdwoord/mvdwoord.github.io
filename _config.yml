@@ -60,6 +60,9 @@ Blogroll:
     - name: Proper Fixation
       href: http://yosefk.com/blog/
       title: "a substitute for anaesthesia"
+    - name: The Old New Thing
+      href: http://blogs.msdn.com/b/oldnewthing/
+      title: Articles by Raymond Chen
 
 ### Build settings
 markdown: kramdown
