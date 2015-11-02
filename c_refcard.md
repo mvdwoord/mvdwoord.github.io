@@ -47,6 +47,8 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `git diff HEAD` | `gd HEAD` | Changes in the working tree since your last commit |
 | `git difftool` | `gdt` | Git diff with default difftool |
 | `git remote -v` | `grv` | List remote repositories |
+| `git branch -vv` | | List branches and show tracking |
+| `git remote show <origin>` | | Show detailed information on \<origin\> |
 | `git pull --rebase` | `gup` | Pull remote with rebase |
 | `git rebase -i HEAD~x` | `grbi HEAD~x`| Interactively squash last *x* commits |
 
