@@ -9,6 +9,7 @@ permalink: /refcard/
 <tr>
     <th style="text-align: center;"><a href="#brew">Brew</a></th>
     <th style="text-align: center;"><a href="#git">Git</a></th>
+    <th style="text-align: center;"><a href="#linux">Linux</a></th>
     <th style="text-align: center;"><a href="#python">Python</a></th>
     <th style="text-align: center;"><a href="#tmux">Tmux</a></th>
     <th style="text-align: center;"><a href="#vim">Vim</a></th>
@@ -52,6 +53,9 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `git pull --rebase` | `gup` | Pull remote with rebase |
 | `git rebase -i HEAD~x` | `grbi HEAD~x`| Interactively squash last *x* commits |
 
+#### Linux
+
+- [Download rpm package AND dependencies](https://unix.stackexchange.com/a/174485)
 
 #### Python
 
