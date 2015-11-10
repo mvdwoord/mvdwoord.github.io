@@ -9,8 +9,8 @@ permalink: /refcard/
 <tr>
     <th style="text-align: center;"><a href="#brew">Brew</a></th>
     <th style="text-align: center;"><a href="#git">Git</a></th>
-    <th style="text-align: center;"><a href="#linux">Linux</a></th>
     <th style="text-align: center;"><a href="#python">Python</a></th>
+    <th style="text-align: center;"><a href="#remote">Remote</a></th>
     <th style="text-align: center;"><a href="#tmux">Tmux</a></th>
     <th style="text-align: center;"><a href="#vim">Vim</a></th>
 </tr>
@@ -53,10 +53,6 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `git pull --rebase` | `gup` | Pull remote with rebase |
 | `git rebase -i HEAD~x` | `grbi HEAD~x`| Interactively squash last *x* commits |
 
-#### Linux
-
-- [Download rpm package AND dependencies](https://unix.stackexchange.com/a/174485)
-
 #### Python
 
 [Python virtual environments](https://virtualenv.pypa.io/en/latest/)
@@ -68,6 +64,12 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `deactivate` | Stop using the current virtual environment |
 | `pip list [--outdated]` | List [outdated] packages |
 | `pip install <package> [--upgrade]` | Install [/upgrade] \<package\> |
+
+#### Remote
+
+| Command | Description |
+|---------|--------------------------------|
+| `rsync -av[n] <src> <dst>` | Archive verbose [dry run] |
 
 #### Tmux
 Terminal Multiplexer [manual](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1?query=tmux&sec=1)
