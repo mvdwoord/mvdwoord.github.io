@@ -1,5 +1,6 @@
 ---
 layout: page
+wide: true
 title: PoC||GTFO
 permalink: /pocgtfo/
 feature-img: "img/waffle-house.jpg"

@@ -19,12 +19,18 @@
   {% include post_pagination.html %}
 
   {% else %}
-
+    {% if page.wide %}
+    <div class="page-content">
+    {% else %}
     <div class="page-content col-sm-8">
+    {% endif %}
     {{ content }}
     {% include post_pagination.html %}
   </div>
-  {% include sidebar.html %}
+
+    {% unless page.wide %}
+      {% include sidebar.html %}
+    {% endunless %}
 
   {% endif %}
 

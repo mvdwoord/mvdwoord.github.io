@@ -1,5 +1,6 @@
 ---
 layout: page
+wide: true
 title: RefCard
 comments: no
 permalink: /refcard/
@@ -9,8 +10,8 @@ permalink: /refcard/
 <tr>
     <th style="text-align: center;"><a href="#brew">Brew</a></th>
     <th style="text-align: center;"><a href="#git">Git</a></th>
+    <th style="text-align: center;"><a href="#misc">Misc</a></th>
     <th style="text-align: center;"><a href="#python">Python</a></th>
-    <th style="text-align: center;"><a href="#remote">Remote</a></th>
     <th style="text-align: center;"><a href="#tmux">Tmux</a></th>
     <th style="text-align: center;"><a href="#vim">Vim</a></th>
 </tr>
@@ -35,6 +36,7 @@ Use [`brew`](http://brew.sh/) for command line applications, `brew cask` for GUI
 #### Git
 
 Official documentation at [git-scm](https://git-scm.com/documentation).
+Branch housekeeping at [Railsware Blog](http://railsware.com/blog/2014/08/11/git-housekeeping-tutorial-clean-up-outdated-branches-in-local-and-remote-repositories/).
 
 | Command | OMZ | Description |
 |--------------|-------|-------------|
@@ -53,6 +55,13 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `git pull --rebase` | `gup` | Pull remote with rebase |
 | `git rebase -i HEAD~x` | `grbi HEAD~x`| Interactively squash last *x* commits |
 
+#### Misc
+
+| Command | Description |
+|---------|--------------------------------|
+| `rsync -av[n] <src> <dst> [--exclude=.DS_Store]` | Archive verbose [dry run] |
+| `find . -name .DS_Store -type f [-delete]` | When you forget -exclude ;) |
+
 #### Python
 
 [Python virtual environments](https://virtualenv.pypa.io/en/latest/)
@@ -64,12 +73,6 @@ Official documentation at [git-scm](https://git-scm.com/documentation).
 | `deactivate` | Stop using the current virtual environment |
 | `pip list [--outdated]` | List [outdated] packages |
 | `pip install <package> [--upgrade]` | Install [/upgrade] \<package\> |
-
-#### Remote
-
-| Command | Description |
-|---------|--------------------------------|
-| `rsync -av[n] <src> <dst>` | Archive verbose [dry run] |
 
 #### Tmux
 Terminal Multiplexer [manual](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man1/tmux.1?query=tmux&sec=1)
