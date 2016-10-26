@@ -67,7 +67,7 @@ Blogroll:
 
 ### Build settings
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
 gems: [jekyll-paginate]
 paginate_path: "page:num"
 paginate: 5
