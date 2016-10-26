@@ -9,7 +9,7 @@ tags:
 ---
 To gain a better understanding of the communication protocol between agents and dispatchers we can use a couple of different tools. Ideally we capture the communication in bulk and store it in such a way that we can analyze it with a variety of different tools. Using command line tools and scripting will allow us to start and stop the capturing with relative ease so we can set up different usage scenarios and focus on specific interaction. Let's get to work.
 <!-- more -->
-#####Capturing with tshark
+##### Capturing with tshark
 Wireshark comes with a command line tool to analyze existing capture files and perform live capturing from the command line. Let's look at the options I used to gather my samples for this article.
 
 <ul>
@@ -33,7 +33,7 @@ Defines the field separator.</li>
 
 When you run this command, and redirect stdout to a text file, you can still see the amount of packets that are being captured, very practical indeed. So let it run for a while, have some interaction with the agent and open up the text file to see what we’ve got.
 
-####Handshake
+#### Handshake
 
 Every conversation starts with the exact same sequence of bytes:
 
@@ -72,7 +72,7 @@ Which looks an awful lot like UTF-16 and decoded as such starts to make sense:
 
 It looks like the agent announces it wants to speak WISDOMV4 to the dispatcher, which answers that it is configured without SSL. I am not sure what the meaning is of the 00080000 but I assume it might be some sort of a maximum transfer size or something similar. Maybe we will figure this out later on. After this initial "WISDOMV4 Handshake" The agent usually sends out a somewhat larger chunk of data to which the dispatcher responds. I will start analysis based on the CHECKFORCHANGES message which is the most common, sent every few seconds.
 
-####CHECKFORCHANGES
+#### CHECKFORCHANGES
 Here is a full dump of all bytes in one of the CHECKFORCHANGES conversations in my test environment:
 <table>
   <tr>
@@ -221,7 +221,7 @@ Here is a full dump of all bytes in one of the CHECKFORCHANGES conversations in 
 
 So it looks like a bunch more UTF-16 but there is something going on in the first few bytes.
 
-#####Agent Communication
+##### Agent Communication
 The first byte the agent sends out is 0x01 als known as the SOH or Start of Heading control character. A little history lesson from wikipedia:
 
 >"The transmission control characters were intended to structure a data stream, and to manage re-transmission or graceful failure, as needed, in the face of transmission errors.
@@ -230,10 +230,10 @@ The start of heading (SOH) character was to mark a non-data section of a data st
 The STX character, 0x02, is nowhere to be found. In stead we find a series of 0x20 which is the codepoint for a SPACE, followed by some numbers. In our case 0x35 0x34 0x34 which in decimal can be interpreted as 544. After this number it looks like UTF-16 text, which we'll analyse a bit later on. The Total size of the TCP data is 557 bytes so the first 13 bytes seem to function as a preamble and include the length of the message.
 <pre>557 - 13 = 544</pre>
 
-#####Dispatcher Communication
+##### Dispatcher Communication
 The data from the dispatcher looks similar but with a few minor differences. There is also a preamble consisting of 8 SPACE characters and some numbers but the SOH is not there. This preamble is sent out in a separate TCP packet, whereas the preamble from the Agent is sent out in the same packet as the rest of the data. Again, the number corresponds to the size of the rest of the message, in this case 0x31 0x33 0x31 0x32 which translates to 1312. Another difference with the agent are the first two bytes, 0xFF 0xFE which is a BOM or Byte Order Mark. This is used in UTF-16 to indicate endianness. According to the specifications it is optional and I can only guess the difference in behavior is due to the differences in the codebase between the agent and dispatcher. More on that later.
 
-####Decoding the data
+#### Decoding the data
 In further analyses we can focus on the contents of the message. Decoded as UTF-16 we find that the messaging is done using XML so the full conversation, minus the preambles, decoded and formatted for readability looks like this:
 
 <table>
