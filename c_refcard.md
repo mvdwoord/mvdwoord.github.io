@@ -61,6 +61,7 @@ Branch housekeeping at [Railsware Blog](http://railsware.com/blog/2014/08/11/git
 |---------|--------------------------------|
 | `rsync -av[n] <src> <dst> [--exclude=.DS_Store]` | Archive verbose [dry run] |
 | `find . -name .DS_Store -type f [-delete]` | When you forget -exclude ;) |
+| `sips -Z 1024 *.jpg` | Resize max edge |
 
 #### Python
 
