@@ -12,20 +12,20 @@ Often it is interesting, sometimes necessary, to do some analysis of the tasks y
 
 <!-- more -->
 
-#####EXPORT FROM THE CONSOLE
+##### EXPORT FROM THE CONSOLE
 The context menu of a job in the Job Results section has an Export Job Results.. item. This gives you some options, and it creates a command line for you with all the corresponding parameters you choose here. Either click **Export** or copy the command line and invoke that elsewhere. Either way you end up with an XML file containing job result information. Although all the information you could possibly need is in this file, there are several problems. This file can get quite big and while there is also an option to export the results per agent, that means you now need to parse lots of individual files. Also, Exporting from the console is a blocking operation. Annoying!
 
-#####EXPORT FROM WEBAPI
+##### EXPORT FROM WEBAPI
 The same xml export can be done via the WebAPI using the **ExportJobResults** operation. This takes three parameters, jobId, includeOverview and includeDetailed which do what you expect. The response will include the same xml as you would get via the console but it is base64 encoded. The reason for this is that the http response is encoded as utf-8, but the enclosed job results xml has utf-16 specified as its encoding. Instead of properly adjusting the xml declaration of the job results, they chose to base64 encode it to prevent xml parsers downstream to throw an error.
 
-#####EXPORT WITH BUILT-IN TASK
+##### EXPORT WITH BUILT-IN TASK
 At last there is also a built in task named **Export RES Automation Manager Job Results** on which the admin guide states:
 
 >“With Export RES Automation Manager Results, you can export Job results to XML files. This allows you to backup Job results for review purposes. This Task is especially useful in combination with the Task Delete RES Automation Manager Results, in which you first back up certain Job results by exporting them to zipped XML files, and then clean up the Datastore by deleting them.”
 
 Unfortunately it is not possible to pass in some sort of an identifier (GUID) for a specific job to export the result of. In stead it is only possible to do bulk exports; you will end up with a zip file with (potentially lots of) xml files and each filename is the GUID of that job. I can imagine this would be useful in some scenarios, as described in the admin guide, but I haven’t had much use for it yet.
 
-#####Job statistics with Powershell
+##### Job statistics with Powershell
 That’s it, there seems to be no way to get simple job statistics other than clicking and viewing them in the console. The WebAPI has an operation called GetJobUsageReport but this only shows overall job status. If you are interested in the details of tasks and agents you will need to export the entire job results and do some statistics on that. You can load the Export.xml in Powershell and do something like this:
 
 {% highlight powershell %}
@@ -71,10 +71,10 @@ Now this is all very nice, you can play around with the Xpath expression a bit t
 
 ![Art Vandelay - Importer Exporter]({{site.url}}/images/art_vandelay.jpg){: .center-image}
 
-####Job statistics with SQL
+#### Job statistics with SQL
 Why don’t we skip the middleman? All information is in the datastore, just get it straight from the source. With the knowledge gained from previous explorations in the datastore this should be a breeze right?
 
-#####JOBS VS MASTERJOBS
+##### JOBS VS MASTERJOBS
 The tblMasterJob table stores information on all “MasterJobs”, but a Run Book consisting of multiple “jobs” is also considered a MasterJob. You can see this in the Job Results pane where you can select to “Show jobs contained in Run Books”. It corresponds with the ysnIsRuBookJob column. Let’s see how the console requests this information when we select the Job Results pane:
 
 {% highlight sql %}
@@ -96,10 +96,10 @@ This can be a bit confusing at first, and I feel this should be dealt with outsi
 lngStatus > 2
 </pre>
 
-#####FROM MASTERJOB TO JOBS
+##### FROM MASTERJOB TO JOBS
 For every Agent that runs tasks in a job (MasterJob), there is a corresponding entry in the tblJobs table. If you open a (master-)job result in the console it will execute a couple of queries. One of them pulls information from the tblAgents and tblTeams tables to pretty print the target names. Another query pulls in data from the tblJobStats table. Wait?! JobSTATS! That sounds like what we are after here, so what is in there exactly? There seems to be an entry for every task executed on every agent along with a status code. Unfortunately the tasks are identified by a GUID, and that GUID is not stored directly in a table somewhere.
 
-#####TASK INFORMATION
+##### TASK INFORMATION
 For existing modules it is stored in the imgTasks binary xml thing column, but because a module may have changed, the MasterJob also holds an imgTasks binary xml thing (maybe I should think of a better name for this) which has the information of all the tasks at execution time. They are essentially the same, but the MasterJob version adds some information which the Module version stores separately in columns. Every(!) entry in the tblJobs table also has this imgTasks column and **it has all of this information (again)** but now information about the job results are added. Disk space is cheap, or so it seems. Here is an example imgTasks xml thing from the tblJobs table:
 
 {% highlight xml %}
@@ -166,14 +166,14 @@ For existing modules it is stored in the imgTasks binary xml thing column, but b
 
 Well, slap my ass and call me Sally! Every bit of information we need (and then some) is in this single .. eh whatever you want to call it. Why oh why is this information stored this way? I can think of many situations where you ditch well known principles (Normalization, DRY, column type selection etc etc) for the sake of performance. But in this case it seems to be resulting in a performance penalty! The more I investigate the inner workings, the more I understand why exactly this product does not scale well.
 
-#####DATA MODELING FOR CONNOISSEURS
+##### DATA MODELING FOR CONNOISSEURS
 Whose brilliant idea was it to represent projects (not shown in this example), modules, and tasks all as “task” elements using these moduleinfo=”yes” and projectinfo=”yes” attributes?! The only way to figure out which task is part of which module, and which module is part of which project, and their respective execution order, is to look at the ordering of all these tasks elements. They are fundamentally different types of objects in the application! Why not properly map them to a nested structure in XML? and why this dependency on element ordering? I think this comment on StackExchange put it nicely (regarding a similar situation):
 
 >The obvious thing to do in situations like this is to find the developer who wrote that class and beat him. This is rarely possible, though it’s interesting to contemplate a world in which it were.
 
 But let’s look at the bright side, at least there is plenty room for improvement.. now on with the show.
 
-#####LET’S JUST QUERY THE TBLJOBS TABLE
+##### LET’S JUST QUERY THE TBLJOBS TABLE
 The “status” attribute in the /tasks/task element is that same thing that is stored in the tblJobStats table, but often we are also interested in this /tasks/task/result value. Whenever a task failed for some reason this usually holds a more meaningful error message. It shows up like this when you drill down in the gui:
 
 ![Task Status Result]({{site.url}}/images/task_status_result.png)
@@ -309,7 +309,7 @@ END
 
 Now we grab a bit more information than we would need, strictly speaking, but I think we can use this principle for more than just job statistics. So now we have our lookup tables for status codes and for every task we can lookup where it belongs in the Project/Module/Task structure, with proper ordering added. Another benefit is that the task description is actually changed in some cases from the xml in the tblMasterJob as variables are parsed upon execution. That’s not helpful at all later on, so good to have a consistent Task Structure table.
 
-#####CAN WE FINALLY START QUERYING RESULTS, SHEEZ!
+##### CAN WE FINALLY START QUERYING RESULTS, SHEEZ!
 Almost, since we want to do joins on values that are hidden within xml in binary image fields and other such wizardry, we need to create a more sane table first to do that with. Some limitations in SQL Server, as well as the TSQL-Fu of yours truly.
 
 {% highlight sql %}

@@ -9,6 +9,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://mvdwoord.github.io" # the base hostname & protocol for your site
 locale: en_US
 
+
 ### Personal info and site tools info:
 twitter_username: mvdwrd
 github_username:  mvdwoord
@@ -66,5 +67,7 @@ Blogroll:
 
 ### Build settings
 markdown: kramdown
-highlighter: pygments
+highlighter: rouge
+gems: [jekyll-paginate]
+paginate_path: "page:num"
 paginate: 5

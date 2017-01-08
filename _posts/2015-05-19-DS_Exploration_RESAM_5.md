@@ -9,7 +9,8 @@ tags:
 Working on a little dashboard / status report for AM I wanted to include some information on the dispatchers. Most of it is straightforward stuff from the tblDispatchers table but I found another one of these RES peculiarities. Some of the settings for a dispatcher can be defined at a global level (Infrastructure -> Datastore -> Settings -> Global Settings) which can be overridden for a specific dispatcher (Dispatcher Properties -> Settings). So how can we include the effective setting straight from SQL?
 <!-- more -->
 
-####Dispatcher Settings
+#### Dispatcher Settings
+
 The tblDispatchers table has a column called imgProperties which can be NULL or holds some xml-encoded-as-image. It seems the default is NULL which means all settings are inherited from the global level. Whenever you override something it will contain these settings, so let's enable the WebAPI on a dispatcher and have a look:
 {% highlight sql %}
 SELECT  CAST(
@@ -38,7 +39,7 @@ The possible values for the state are: ENABLED \| DISABLED \| GLOBAL so the sett
 
 Well, yes.. more or less.
 
-####Global Settings
+#### Global Settings
 So where are the global settings stored? in the tblSettings table of course! To be more specific in an entry in the tblSettings table with lngSetting = 13 which has another xml-encoded-as-image thing called imgData1. After installation this thing contains:
 {% highlight xml %}
 <properties>
@@ -75,7 +76,7 @@ Yeah, interesting. The timetype seems to be there twice, once abandoned, and onc
   <protocolencryptiondispatcher>DISABLED</protocolencryptiondispatcher>
 {% endhighlight %}
 
-####SQL Query logic
+#### SQL Query logic
 So how do we make sense of all of this in SQL? As far as I could tell with a bit of testing we can make use of the behavior of the XML query capabilities in T-SQL to make our life a bit easier. First we look at the the dispatcher setting xml. If it is either epxlicitly ENABLED or DISABLED it is overriding global settings, otherwise it will be GLOBAL or the setting will not be there. Either way we will need to look at the global settings xml. If teh global setting is ENABLED then it is enabled, otherwise it is either DISABLED or absent. In both cases the setting is efectively disabled. Combine this with some other information in the tblDispatchers table and this should do the trick:
 
 {% highlight sql %}
@@ -160,5 +161,5 @@ ORDER BY Server
 
 Please note I removed two columns for readability.
 
-####Conclusion
+#### Conclusion
 As I have shown in previous posts, RES has many ways to store information and it is not very consistent in using them. There seems to be quite some legacy stuff lingering throughout the database as well as frequent use of default values. These are all for you to find out, so basically you buy a piece of software and they throw in a bunch of puzzles at no additional cost! I hope I did not overlook any specific situation, so as always: test before you trust.

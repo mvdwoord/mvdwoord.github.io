@@ -1,5 +1,6 @@
 ---
 layout: page
+wide: true
 title: PoC||GTFO
 permalink: /pocgtfo/
 feature-img: "img/waffle-house.jpg"
@@ -24,3 +25,4 @@ Because if burning a book is a sin -which it surely is!- then copying of a book 
 |<a href ="https://github.com/mvdwoord/Static/blob/master/pocorgtfo/pocorgtfo06.pdf">PoC \|\| GTFO 0x06</a>| `02222f78842741c8b74237abe72f4015` |
 |<a href ="https://github.com/mvdwoord/Static/blob/master/pocorgtfo/pocorgtfo07.pdf">PoC \|\| GTFO 0x07</a>| `1cb67f33d8b1a63bf4f729ddf328eba3` |
 |<a href ="https://github.com/mvdwoord/Static/blob/master/pocorgtfo/pocorgtfo08.pdf">PoC \|\| GTFO 0x08</a>| `257fc8f01fa20e21f8bd5577639ff596` |
+|<a href ="https://github.com/mvdwoord/Static/blob/master/pocorgtfo/pocorgtfo09.pdf">PoC \|\| GTFO 0x09</a>| `4dc7e88a1f88df3f169245af8c148bde` |

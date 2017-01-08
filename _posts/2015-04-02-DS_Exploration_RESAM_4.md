@@ -17,7 +17,7 @@ Previous queries, exploring binary fields in the datastore, skipped the tables *
 Initiate scrubbing:
 <!-- more -->
 
-####tblResources
+#### tblResources
 
 This is where the resources are stored, and shows all the usual suspects in columns with predictable types; GUID, Filename, Enabled, Size, CRC, etc etc. But does it really hold resources? That imgInfo column looks suspicious.. and as it turns out contains even more XML. Apparently the lngType indicates the type of resource and they each get their own bit of XML.
 
@@ -251,7 +251,7 @@ Decrypted : Hey, watcha readin' for?
 
 So, I may have upset some people with my blatant disregard for Pythonic coding standards. Perhaps, but the code runs and I made a new friend in the Jupyter iPython Notebook. Pretty cool stuff if you ask me. I mean iPython, not 16th century ciphers with a key of length 5 ‘protecting’ my passwords.
 
-####Update
+#### Update
 
 Running the decryption on a bunch of stuff in the database, I found that the same cipher is used for storing credentials in modules. However not all of them use the same key, but with some help of the notebook it is trivial to figure out what they are. I created a number of different tasks in AM, using the same password and ran them through the iPython notebook I created earlier. The encrypted passwords are stored in XML in the imgTasks column in the tblModules table.
 

@@ -16,14 +16,14 @@ Great, but how does this communication work? What does a conversation between an
 
 <!-- more -->
 
-#####Interactive Agent
+##### Interactive Agent
 The agent executable accepts the **/interactive** parameter which starts the agent with a GUI. This can be used to switch RES AM envropnment connections but it also shows Current Activity indicating it is sending messages to the dispatcher. When the agent is idle it usually just shows this:
 
 ![Current activity]({{site.url}}/images/current_activity.png)
 
 So the agent sends out a CHECKFORCHANGES message every few seconds, which makes perfect sense. During startup, and when a job is executed you see many different types of messages flying past. Unfortunately the GUI updates rather quickly and does not seem to show or keep any history.
 
-#####Trace-file
+##### Trace-file
 Next stop is the logging and tracing built into the product. The logfile and Windows Application Event-log do not show many interesting things but in the registry you can enable a detailed trace of any RES AM component. You simply specify Trace and TraceDetailed as well as a location for the file. It uses rotational logging to a file with a fixed size of 2 MB. Loading the trace-file in excel let’s you analyse the information with relative ease. Split the columns on tabs and split the [Info] column on a semicolon to give you detailed information on the agents activity. This sequence shows up regularly and seems to correspond with the CHECKFORCHANGES message being sent out:
 
 <table>
@@ -209,12 +209,12 @@ Now that's more like it! We see some different messages being sent, mainly from 
 
 We get quite a bit of information but not the contents of the messages. So the trace-file definitely helps in understanding the functioning of the agent but to figure out the protocol we need to dig a little deeper.
 
-####Protocol Characteristics
+#### Protocol Characteristics
 >RES Automation Manager uses port 3163 (TCP/UDP) for communication between Agents and Dispatchers. This port is hard-coded and cannot be changed.
 
 Both TCP and UDP port 3163 are registered as RES-SAP protocol with IANA. According to the documentation, UDP is only used for discovery / broadcasting. That may be interesting down the line but let's start the investigation with TCP.
 
-#####Network sniffing with Wireshark
+##### Network sniffing with Wireshark
 Using Wireshark we can quickly confirm that the dispatcher receives regular traffic on TCP port 3163 from the agent(s). Start capturing on the dispatcher with a rule <strong>tcp.port == 3163</strong> to filter out all the noise. A common exchange we see with an idle agent is this:
 
 <table>
@@ -277,7 +277,7 @@ Using Wireshark we can quickly confirm that the dispatcher receives regular traf
 
 Quintessential TCP handshake, some data flowing back and forth and the connection ends rather impolitely with the agent sending a RST/ACK. I say impolitely because according to the RFC a TCP connection should end with a two way FIN/ACK handshake. This normal termination also requires the connection to remain in a TIME-WAIT state for a significant period and therefore it is quite common to end it a bit more abrupt with a reset. This immediately discards the connection state freeing up resources, simple common sense really.
 
-#####TCP stream contents
+##### TCP stream contents
 Although many different protocols are automatically recognized by Wireshark and can be explored in the lower pane, there is no built in dissector for the RES-SAP protocol.
 Wireshark has a function called "follow tcp stream" which allows you to view a sequence of packets like this to be viewed in several different ways and opening this up does show us the contents of the communication:
 
