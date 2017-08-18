@@ -1,7 +1,6 @@
 ---
 title: Exploring the Python AST
 layout: post
-permalink: explore-ast
 category: exploration
 tags:
 - Python
