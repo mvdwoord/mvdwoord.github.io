@@ -32,3 +32,4 @@ Because if burning a book is a sin -which it surely is!- then copying of a book 
 |<a href ="https://github.com/mvdwoord/Static/raw/master/pocorgtfo/pocorgtfo13.pdf">PoC \|\| GTFO 0x13</a>| `c881c67557af52864654791a2a494f329a2fa397236bf0e961508f0769b0a3f5` |
 |<a href ="https://github.com/mvdwoord/Static/raw/master/pocorgtfo/pocorgtfo14.pdf">PoC \|\| GTFO 0x14</a>| `b9db617dcc146cc99f4379b3162a35818d884bf4032ab854b6ec00b5ec98138d` |
 |<a href ="https://github.com/mvdwoord/Static/raw/master/pocorgtfo/pocorgtfo15.pdf">PoC \|\| GTFO 0x15</a>| `c9b3f5026640efae12d75e62868931e2b2b5ad98a9b858408266ac5c35815bf4` |
+|<a href ="https://github.com/mvdwoord/Static/raw/master/pocorgtfo/pocorgtfo16.pdf">PoC \|\| GTFO 0x16</a>| `10f0cb977f03824737a413079ded14b237b7ee155a5397e804586ab7151ed0a3` |
