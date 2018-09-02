@@ -57,11 +57,26 @@ Branch housekeeping at [Railsware Blog](http://railsware.com/blog/2014/08/11/git
 
 #### Misc
 
+SSH Homepage at [ssh.com](https://www.ssh.com/ssh/)
+
 | Command | Description |
 |---------|--------------------------------|
 | `rsync -av[n] <src> <dst> [--exclude=.DS_Store]` | Archive verbose [dry run] |
 | `find . -name .DS_Store -type f [-delete]` | When you forget -exclude ;) |
 | `sips -Z 1024 *.jpg` | Resize images w max edge |
+| `ssh-keygen -t rsa` | Interactively generate SSH key pair |
+| `ssh-copy-id -i ~/.ssh/mykey user@host` | Copy publc key to host |
+
+
+####PostgreSQL
+
+Offline installation, download PGDG rpm files from:
+-
+
+Install RPMs
+Set postgres user password
+open network using pg_hba.conf
+
 
 #### Python
 
@@ -86,8 +101,12 @@ Terminal Multiplexer [manual](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-cur
 | `tmux new [-s <session-name>]` | Create a new [named] session |
 | `Ctrl-b s` | List sessions |
 | `Ctrl-b w` | List Windows |
+| `Ctrl-b c` | New window |
+| `Ctrl-b ,` | Name window |
+| `Ctrl-b f` | Find window |
+| `Ctrl-b &` | Kill window |
 
-Simple configuration file stolen from around the web but mostly from [here](https://danielmiessler.com/study/tmux/#configuration).
+Simple configuration file (~/.tmux.conf) stolen from around the web but mostly from [here](https://danielmiessler.com/study/tmux/#configuration).
 
 {% highlight squid %}
 # Tmux settings
